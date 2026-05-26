@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/Theme",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "rkstrdee@gmail.com",
+                "Name": "Dharam Dhurandhar"
+            }
+        ],
+        "Category": "Plasma Theme",
+        "Description": "A dark and modern theme for Plasma 6",
+        "EnabledByDefault": true,
+        "Id": "cachyos-emerald",
+        "License": "GPL-3.0",
+        "Name": "cachyos-emerald",
+        "Version": "1.0.6",
+        "Website": ""
+    },
+    "X-Plasma-API": "5.0"
+}

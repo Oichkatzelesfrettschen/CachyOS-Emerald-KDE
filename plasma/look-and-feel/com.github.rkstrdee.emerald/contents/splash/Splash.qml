@@ -17,14 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.1
+import QtQuick
 
 
 Image {
     id: root
     source: "images/background.jpg"
+    fillMode: Image.PreserveAspectCrop
 
-    property int stage
+    property int stage: 0
 
     onStageChanged: {
         if (stage == 1) {
@@ -51,15 +52,16 @@ Image {
             height: 6
             width: height*36
             Rectangle {
+                id: progressFill
                 radius: 3
                 anchors {
                     left: parent.left
                     top: parent.top
                     bottom: parent.bottom
                 }
-                width: (parent.width / 6) * (stage - 1)
+                width: parent.width * Math.max(0, Math.min(root.stage - 1, 6)) / 6
                 color: "#ffffff"
-                Behavior on width { 
+                Behavior on width {
                     PropertyAnimation {
                         duration: 250
                         easing.type: Easing.InOutQuad
@@ -73,24 +75,13 @@ Image {
         id: introAnimation
         running: false
 
-        ParallelAnimation {
-            PropertyAnimation {
-                property: "y"
-                target: topRect
-                to: root.height / 3.7
-                duration: 1000
-                easing.type: Easing.InOutBack
-                easing.overshoot: 1.0
-            }
-
-            PropertyAnimation {
-                property: "y"
-                target: bottomRect
-                to: 2 * (root.height / 3) - bottomRect.height
-                duration: 1000
-                easing.type: Easing.InOutBack
-                easing.overshoot: 1.0
-            }
+        PropertyAnimation {
+            property: "y"
+            target: topRect
+            to: root.height / 3.7
+            duration: 1000
+            easing.type: Easing.InOutBack
+            easing.overshoot: 1.0
         }
     }
 }

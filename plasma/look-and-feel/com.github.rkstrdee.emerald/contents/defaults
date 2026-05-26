@@ -23,7 +23,5 @@ library=org.kde.breeze
 name=cachyos-emerald-color
 
 [Wallpaper]
-Image=Skyscraper
-
-
+Image=file:///usr/share/wallpapers/cachyos-wallpapers/CachyOS_GreenSpace.png
 
