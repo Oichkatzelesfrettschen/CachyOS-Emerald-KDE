@@ -1,4 +1,5 @@
 /pkg/
 /src/
+/cachyos-emerald-kde-theme-git/
 /*.pkg.tar*
 /*.src.tar*
