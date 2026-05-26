@@ -36,7 +36,4 @@ package() {
 
     install -dm755 "${pkgdir}/usr/share/plasma/look-and-feel"
     cp -a plasma/look-and-feel/. "${pkgdir}/usr/share/plasma/look-and-feel/"
-
-    install -Dm755 scripts/validate-plasma6-theme.sh \
-        "${pkgdir}/usr/share/doc/${pkgname}/validate-plasma6-theme.sh"
 }
