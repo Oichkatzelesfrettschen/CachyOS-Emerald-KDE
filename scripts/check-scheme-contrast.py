@@ -158,8 +158,33 @@ def check_svg_cascade():
     return failures
 
 
+def check_konsole_schemes():
+    """Terminal text must clear WCAG body-text contrast and the ANSI green
+    slot must sit in the emerald band, or the terminal loses the theme
+    identity the same way the desktop did."""
+    failures = []
+    for path in sorted((REPO_ROOT / "konsole").glob("*.colorscheme")):
+        scheme = configparser.ConfigParser(strict=False)
+        scheme.optionxform = str
+        scheme.read(path)
+        background = parse_color(scheme, "Background", "Color")
+        foreground = parse_color(scheme, "Foreground", "Color")
+        green = parse_color(scheme, "Color2", "Color")
+        ratio = contrast_ratio(foreground, background)
+        if ratio < 4.5:
+            failures.append(f"{path.name}: terminal text contrast {ratio:.2f} < 4.5")
+        hue = hue_degrees(green)
+        low, high = EMERALD_HUE_RANGE
+        if not low <= hue <= high:
+            failures.append(f"{path.name}: ANSI green hue {hue:.0f} outside emerald band")
+    return failures
+
+
 def main():
     all_ok = True
+    for failure in check_konsole_schemes():
+        all_ok = False
+        print(failure, file=sys.stderr)
     for failure in check_svg_cascade():
         all_ok = False
         print(failure, file=sys.stderr)

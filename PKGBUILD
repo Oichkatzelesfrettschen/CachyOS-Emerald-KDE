@@ -1,7 +1,7 @@
 # Maintainer: Eirikr <eirikr@users.noreply.github.com>
 
 pkgname=cachyos-emerald-kde-theme-git
-pkgver=r38.cd51f05
+pkgver=r39.30b5836
 pkgrel=1
 pkgdesc="CachyOS Emerald KDE Theme"
 arch=('any')
@@ -36,4 +36,7 @@ package() {
 
     install -dm755 "${pkgdir}/usr/share/plasma/look-and-feel"
     cp -a plasma/look-and-feel/. "${pkgdir}/usr/share/plasma/look-and-feel/"
+
+    install -dm755 "${pkgdir}/usr/share/konsole"
+    install -m644 konsole/*.colorscheme "${pkgdir}/usr/share/konsole/"
 }
