@@ -8,7 +8,7 @@ ColorScheme=EmeraldDark
 Theme=char-white
 
 [kdeglobals][KDE]
-widgetStyle=breeze
+widgetStyle=Breeze
 
 [kwinrc][WindowSwitcher]
 LayoutName=big_icons
@@ -18,9 +18,13 @@ LayoutName=big_icons
 
 [kwinrc][org.kde.kdecoration2]
 library=org.kde.breeze
+theme=Breeze
 
 [plasmarc][Theme]
 name=cachyos-emerald-color
+
+[ksplashrc][KSplash]
+Theme=com.github.rkstrdee.emerald
 
 [Wallpaper]
 Image=file:///usr/share/wallpapers/cachyos-wallpapers/CachyOS_GreenSpace.png

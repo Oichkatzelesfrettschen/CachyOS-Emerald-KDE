@@ -23,6 +23,36 @@ fi
 
 find "$repo_root/plasma" -name metadata.json -exec jq empty {} +
 
+# KF6 KPackage reads KPackageStructure; ServiceTypes and X-Plasma-MainScript are
+# dead KF5 keys and their presence marks a package that predates the port.
+find "$repo_root/plasma" -name metadata.json | while IFS= read -r metadata_file; do
+    if jq -e '.KPlugin.ServiceTypes // .["X-Plasma-MainScript"]' "$metadata_file" >/dev/null 2>&1; then
+        echo "deprecated KF5 metadata key in: $metadata_file" >&2
+        exit 1
+    fi
+done
+
+# KSvg resolves foo.svgz before foo.svg, so a .svgz must be real gzip and a
+# .svg sibling of the same stem is unreachable dead weight (or worse, the
+# intended asset shadowed by a stray copy).
+find "$repo_root/plasma" -name '*.svgz' | while IFS= read -r svgz_file; do
+    if ! gzip -t "$svgz_file" 2>/dev/null; then
+        echo "not gzip data: $svgz_file" >&2
+        exit 1
+    fi
+    svg_sibling="${svgz_file%.svgz}.svg"
+    if [ -e "$svg_sibling" ]; then
+        echo "svg shadowed by svgz sibling: $svg_sibling" >&2
+        exit 1
+    fi
+done
+
+# Filenames with spaces or parentheses are download-manager duplicates.
+if find "$repo_root/plasma" -name '* *' -o -name '*(*' | grep .; then
+    echo "junk filename detected above" >&2
+    exit 1
+fi
+
 qmllint "$repo_root/plasma/look-and-feel/com.github.rkstrdee.emerald/contents/splash/Splash.qml"
 
 tmp_data_home=$(mktemp -d)
