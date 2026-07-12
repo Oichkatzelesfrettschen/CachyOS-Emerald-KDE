@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=Emerald
+Description=Emerald login theme (CachyOS Emerald)
+Author=Terascale Functionalists
+License=GPL-3.0
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/Oichkatzelesfrettschen/CachyOS-Emerald-KDE
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=cachyos-emerald
+Theme-API=2.0

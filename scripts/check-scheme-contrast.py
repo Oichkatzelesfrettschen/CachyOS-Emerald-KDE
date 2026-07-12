@@ -55,6 +55,11 @@ def parse_color(scheme, section, key):
     return tuple(int(component) for component in raw.split(",")[:3])
 
 
+def parse_hex(value):
+    value = value.lstrip("#")
+    return tuple(int(value[index : index + 2], 16) for index in (0, 2, 4))
+
+
 def check_scheme(path):
     scheme = configparser.ConfigParser(strict=False)
     scheme.optionxform = str
@@ -180,8 +185,38 @@ def check_konsole_schemes():
     return failures
 
 
+def check_syntax_themes():
+    """Editor themes must keep syntax legible on their own background and
+    keep the emerald identity in the keyword slot.  Every syntax role
+    except the deliberately-dim Comment must clear WCAG AA-large (3:1) on
+    the editor background, and the Keyword color must sit in the emerald
+    band -- the same monochrome-vs-rainbow discipline as the desktop."""
+    import json
+
+    failures = []
+    theme_dir = REPO_ROOT / "syntax-highlighting"
+    for path in sorted(theme_dir.glob("*.theme")):
+        theme = json.loads(path.read_text())
+        background = parse_hex(theme["editor-colors"]["BackgroundColor"])
+        styles = theme["text-styles"]
+        for role, style in styles.items():
+            if role == "Comment":
+                continue
+            ratio = contrast_ratio(parse_hex(style["text-color"]), background)
+            if ratio < 3.0:
+                failures.append(f"{path.name}: {role} contrast {ratio:.2f} < 3.0")
+        keyword_hue = hue_degrees(parse_hex(styles["Keyword"]["text-color"]))
+        low, high = EMERALD_HUE_RANGE
+        if not low <= keyword_hue <= high:
+            failures.append(f"{path.name}: Keyword hue {keyword_hue:.0f} outside emerald band")
+    return failures
+
+
 def main():
     all_ok = True
+    for failure in check_syntax_themes():
+        all_ok = False
+        print(failure, file=sys.stderr)
     for failure in check_konsole_schemes():
         all_ok = False
         print(failure, file=sys.stderr)

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Emerald
+Comment=CachyOS Emerald GTK theme (emerald accent on dark Breeze chrome)
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Emerald
+MetacityTheme=Emerald
+IconTheme=char-white
+CursorTheme=breeze_cursors
+ButtonLayout=menu:minimize,maximize,close

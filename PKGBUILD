@@ -39,4 +39,14 @@ package() {
 
     install -dm755 "${pkgdir}/usr/share/konsole"
     install -m644 konsole/*.colorscheme "${pkgdir}/usr/share/konsole/"
+
+    install -dm755 "${pkgdir}/usr/share/org.kde.syntax-highlighting/themes"
+    install -m644 syntax-highlighting/*.theme \
+        "${pkgdir}/usr/share/org.kde.syntax-highlighting/themes/"
+
+    install -dm755 "${pkgdir}/usr/share/sddm/themes"
+    cp -a sddm/. "${pkgdir}/usr/share/sddm/themes/"
+
+    install -dm755 "${pkgdir}/usr/share/themes"
+    cp -a gtk/. "${pkgdir}/usr/share/themes/"
 }
