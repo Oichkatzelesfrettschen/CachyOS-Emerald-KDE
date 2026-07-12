@@ -1,7 +1,7 @@
 # Maintainer: Eirikr <eirikr@users.noreply.github.com>
 
 pkgname=cachyos-emerald-kde-theme-git
-pkgver=r27.4dfd0ca
+pkgver=r32.9dda6c0
 pkgrel=1
 pkgdesc="CachyOS Emerald KDE Theme"
 arch=('any')
