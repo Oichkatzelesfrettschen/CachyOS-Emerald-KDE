@@ -23,7 +23,7 @@ import sys
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCHEME_DIR = REPO_ROOT / "color-schemes"
-DARK_SCHEMES = ("EmeraldDark", "EmeraldDarker")
+DARK_SCHEMES = ("EmeraldDark", "EmeraldDarker", "EmeraldSmooth")
 EMERALD_HUE_RANGE = (130.0, 180.0)
 
 
@@ -99,6 +99,7 @@ def check_scheme(path):
 LNF_DEFAULTS = (
     "plasma/look-and-feel/com.github.rkstrdee.emerald/contents/defaults",
     "plasma/look-and-feel/com.github.rkstrdee.emerald.darker/contents/defaults",
+    "plasma/look-and-feel/com.github.rkstrdee.emerald.smooth/contents/defaults",
 )
 
 

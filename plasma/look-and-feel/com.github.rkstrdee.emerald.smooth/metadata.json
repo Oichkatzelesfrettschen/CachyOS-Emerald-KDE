@@ -1,0 +1,19 @@
+{
+  "KPackageStructure": "Plasma/LookAndFeel",
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "rkstrdee@gmail.com",
+        "Name": "Dharam Dhurandhar"
+      }
+    ],
+    "Category": "Global Themes (Plasma 6)",
+    "Description": "A smooth graphite emerald Plasma theme",
+    "Id": "com.github.rkstrdee.emerald.smooth",
+    "License": "GPL-2.0+",
+    "Name": "Emerald Smooth",
+    "Version": "1.0",
+    "Website": "https://wiki.cachyos.org/"
+  },
+  "Keywords": "Desktop;Workspace;Appearance;Look and Feel;Logout;Lock;Suspend;Shutdown;Hibernate;"
+}
