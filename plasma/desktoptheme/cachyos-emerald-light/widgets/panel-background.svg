@@ -261,7 +261,7 @@
        height="32"
        width="8.0000181"
        id="rect4152"
-       style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.1547"
+       style="opacity:1;fill:#eff0f1;fill-opacity:1;stroke:none;stroke-width:1.1547"
        transform="matrix(0,-1,-1,0,0,0)"
        class="ColorScheme-Background" />
     <rect
@@ -296,7 +296,7 @@
      height="12.000099"
      width="12.000099"
      id="center"
-     style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.3750031" />
+     style="opacity:1;fill:#eff0f1;fill-opacity:1;stroke:none;stroke-width:0.3750031" />
   <rect
      style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.7070992"
      id="hint-top-margin"

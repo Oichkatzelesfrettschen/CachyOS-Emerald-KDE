@@ -133,6 +133,8 @@ def check_svg_cascade():
     for path in glob.glob(pattern, recursive=True):
         opener = gzip.open if path.endswith(".svgz") else open
         data = opener(path, "rb").read().decode()
+        rel = pathlib.Path(path).relative_to(REPO_ROOT)
+        is_background_asset = "panel-background" in path or "/dialogs/" in path
         for match in re.finditer(r"<[a-zA-Z]+[^>]*>", data):
             tag = match.group(0)
             if (
@@ -140,8 +142,18 @@ def check_svg_cascade():
                 and "currentColor" in tag
                 and re.search(r'style="(?:[^"]*;)?color:#', tag)
             ):
-                rel = pathlib.Path(path).relative_to(REPO_ROOT)
                 failures.append(f"{rel}: inline color overrides currentColor cascade")
+                break
+            # KSvg palette injection proved unreliable for panel and dialog
+            # backgrounds on Plasma 6.7 (the fallback stylesheet's #eff0f1
+            # rendered on screen); Background elements there must carry a
+            # concrete fill, the Breeze-Noir-Dark approach.
+            if (
+                is_background_asset
+                and "ColorScheme-Background" in tag
+                and "fill:currentColor" in tag
+            ):
+                failures.append(f"{rel}: Background element relies on palette injection")
                 break
     return failures
 
