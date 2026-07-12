@@ -117,8 +117,40 @@ def check_accent_pin(rel_path):
     return []
 
 
+def check_svg_cascade():
+    """An inline `color:` declaration on a ColorScheme-classed SVG element
+    outranks the KSvg stylesheet class in the CSS cascade, so
+    fill:currentColor resolves to the baked-in color instead of the theme
+    palette -- a panel silently renders Breeze-light white on a dark theme.
+    Reject any element combining a ColorScheme class, currentColor, and an
+    inline color declaration."""
+    import glob
+    import gzip
+    import re
+
+    failures = []
+    pattern = str(REPO_ROOT / "plasma" / "desktoptheme" / "**" / "*.svg*")
+    for path in glob.glob(pattern, recursive=True):
+        opener = gzip.open if path.endswith(".svgz") else open
+        data = opener(path, "rb").read().decode()
+        for match in re.finditer(r"<[a-zA-Z]+[^>]*>", data):
+            tag = match.group(0)
+            if (
+                "ColorScheme-" in tag
+                and "currentColor" in tag
+                and re.search(r'style="(?:[^"]*;)?color:#', tag)
+            ):
+                rel = pathlib.Path(path).relative_to(REPO_ROOT)
+                failures.append(f"{rel}: inline color overrides currentColor cascade")
+                break
+    return failures
+
+
 def main():
     all_ok = True
+    for failure in check_svg_cascade():
+        all_ok = False
+        print(failure, file=sys.stderr)
     for rel_path in LNF_DEFAULTS:
         failures = check_accent_pin(rel_path)
         if failures:
