@@ -58,11 +58,13 @@ qmllint "$repo_root/plasma/look-and-feel/com.github.rkstrdee.emerald/contents/sp
 tmp_data_home=$(mktemp -d)
 trap 'rm -rf "$tmp_data_home"' EXIT HUP INT TERM
 
-XDG_DATA_HOME=$tmp_data_home \
-    kpackagetool6 --type Plasma/LookAndFeel \
-    --install "$repo_root/plasma/look-and-feel/com.github.rkstrdee.emerald" >/dev/null
+for lnf_name in com.github.rkstrdee.emerald com.github.rkstrdee.emerald.darker; do
+    XDG_DATA_HOME=$tmp_data_home \
+        kpackagetool6 --type Plasma/LookAndFeel \
+        --install "$repo_root/plasma/look-and-feel/$lnf_name" >/dev/null
+done
 
-for theme_name in cachyos-emerald cachyos-emerald-color cachyos-emerald-light; do
+for theme_name in cachyos-emerald cachyos-emerald-color cachyos-emerald-darker cachyos-emerald-light; do
     XDG_DATA_HOME=$tmp_data_home \
         kpackagetool6 --type Plasma/Theme \
         --install "$repo_root/plasma/desktoptheme/$theme_name" >/dev/null
