@@ -14,6 +14,9 @@ require_command() {
 require_command jq
 require_command kpackagetool6
 require_command qmllint
+require_command python3
+
+python3 "$repo_root/scripts/check-scheme-contrast.py"
 
 if [ ! -f "$wallpaper_path" ]; then
     echo "missing wallpaper: $wallpaper_path" >&2

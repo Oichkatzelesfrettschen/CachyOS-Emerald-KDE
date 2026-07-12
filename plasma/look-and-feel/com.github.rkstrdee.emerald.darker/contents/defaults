@@ -3,6 +3,7 @@ cursorTheme=breeze_cursors
 
 [kdeglobals][General]
 ColorScheme=EmeraldDarker
+AccentColor=0,152,106
 
 [kdeglobals][Icons]
 Theme=char-white

@@ -1,7 +1,7 @@
 # Maintainer: Eirikr <eirikr@users.noreply.github.com>
 
 pkgname=cachyos-emerald-kde-theme-git
-pkgver=r33.57e8cd8
+pkgver=r34.d632075
 pkgrel=1
 pkgdesc="CachyOS Emerald KDE Theme"
 arch=('any')
@@ -9,7 +9,7 @@ url="https://github.com/Oichkatzelesfrettschen/CachyOS-Emerald-KDE"
 license=('GPL-3.0-only')
 groups=('cachyos')
 depends=('cachyos-wallpapers' 'char-white' 'qt6-declarative')
-makedepends=('git' 'jq' 'kpackage' 'shellcheck')
+makedepends=('git' 'jq' 'kpackage' 'python' 'shellcheck')
 optdepends=('plasma-desktop: for the included Plasma global and desktop themes')
 source=("${pkgname}::git+${url}.git#branch=main")
 sha256sums=('SKIP')
