@@ -165,9 +165,14 @@ def check_svg_cascade():
 
 
 def check_konsole_schemes():
-    """Terminal text must clear WCAG body-text contrast and the ANSI green
-    slot must sit in the emerald band, or the terminal loses the theme
-    identity the same way the desktop did."""
+    """Terminal text must clear WCAG body-text contrast, keep the ANSI green
+    slot in the emerald band, and hold the six chromatic slots mutually
+    distinct under simulated colorblindness -- an earlier revision collapsed
+    green and cyan to CIEDE2000 3.8 (both emerald teals), which reads as
+    'not unique' even to normal vision and worse to a dichromat.  The
+    colorblind distinctness metric lives in cb_palette."""
+    import cb_palette
+
     failures = []
     for path in sorted((REPO_ROOT / "konsole").glob("*.colorscheme")):
         scheme = configparser.ConfigParser(strict=False)
@@ -183,6 +188,19 @@ def check_konsole_schemes():
         low, high = EMERALD_HUE_RANGE
         if not low <= hue <= high:
             failures.append(f"{path.name}: ANSI green hue {hue:.0f} outside emerald band")
+
+        ansi = {slot: parse_color(scheme, f"Color{slot}", "Color") for slot in range(8)}
+        report = cb_palette.palette_report(ansi)
+        normal_min = report["normal"][0]
+        if normal_min < 12.0:
+            worst = report["normal"][1]
+            failures.append(f"{path.name}: chromatic slots {worst} too similar (dE {normal_min:.1f} < 12)")
+        for vision in ("deuteranopia", "protanopia"):
+            vision_min, worst, red_green = report[vision]
+            if vision_min < 9.0:
+                failures.append(f"{path.name}: {vision} collapses {worst} (dE {vision_min:.1f} < 9)")
+            if red_green < 15.0:
+                failures.append(f"{path.name}: {vision} red/green dE {red_green:.1f} < 15")
     return failures
 
 

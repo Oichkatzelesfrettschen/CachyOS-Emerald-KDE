@@ -1,20 +1,20 @@
 [Background]
-Color=0,22,33
+Color=20,23,17
 
 [BackgroundFaint]
-Color=0,15,22
+Color=13,15,11
 
 [BackgroundIntense]
-Color=15,36,46
+Color=34,37,31
 
 [Color0]
-Color=8,30,42
+Color=28,31,24
 
 [Color0Faint]
-Color=5,20,28
+Color=18,20,16
 
 [Color0Intense]
-Color=82,98,106
+Color=96,98,93
 
 [Color1]
 Color=240,85,61
@@ -71,28 +71,28 @@ Color=107,156,158
 Color=190,242,244
 
 [Color7]
-Color=216,222,233
+Color=210,216,196
 
 [Color7Faint]
-Color=143,147,154
+Color=139,143,129
 
 [Color7Intense]
-Color=228,232,240
+Color=224,228,214
 
 [Foreground]
-Color=206,240,228
+Color=178,188,168
 
 [ForegroundFaint]
-Color=144,175,170
+Color=131,138,123
 
 [ForegroundIntense]
-Color=223,245,237
+Color=205,211,198
 
 [General]
 Anchor=0.5,0.5
 Blur=false
 ColorRandomization=false
-Description=Emerald Darker
+Description=Emerald VGUI2 Classic
 FillStyle=Tile
 Opacity=1
 Wallpaper=

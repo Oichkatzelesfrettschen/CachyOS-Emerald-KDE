@@ -1,5 +1,6 @@
 /pkg/
 /src/
 /cachyos-emerald-kde-theme-git/
+/bibata/
 /*.pkg.tar*
 /*.src.tar*

@@ -1,7 +1,7 @@
 # Maintainer: Eirikr <eirikr@users.noreply.github.com>
 
 pkgname=cachyos-emerald-kde-theme-git
-pkgver=r44.64f2e7b
+pkgver=r46.9865b23
 pkgrel=1
 pkgdesc="CachyOS Emerald KDE Theme"
 arch=('any')
@@ -48,6 +48,7 @@ package() {
 
     install -dm755 "${pkgdir}/usr/share/konsole"
     install -m644 konsole/*.colorscheme "${pkgdir}/usr/share/konsole/"
+    install -m644 konsole/*.profile "${pkgdir}/usr/share/konsole/"
 
     install -dm755 "${pkgdir}/usr/share/org.kde.syntax-highlighting/themes"
     install -m644 syntax-highlighting/*.theme \
