@@ -1,8 +1,8 @@
 [Appearance]
-ColorScheme=EmeraldVGUI2Classic
+ColorScheme=EmeraldSourceConsole
 BoldIntense=true
 UseFontLineChars=true
 
 [General]
-Name=Emerald VGUI2 Classic
+Name=Emerald Source Console
 Parent=FALLBACK/

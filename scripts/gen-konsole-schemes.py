@@ -11,9 +11,9 @@ vision-conformant identity.
 
 Emerald Darkest is the synthesis the brief asked for: Modus Vivendi's essence
 (maximal contrast on a pure-black canvas) merged with Black Glass's translucent
-sheen (Opacity + Blur), carrying the emerald identity.  Emerald VGUI2 Classic
-evokes Valve's VGUI2 toolkit mood -- a dark olive canvas with muted grey-green
-body text -- as an original palette copying no Valve asset.
+sheen (Opacity + Blur), carrying the emerald identity.  Emerald Source Console
+evokes the Source-engine developer-console mood -- a dark olive canvas with
+muted grey-green body text -- as an original palette copying no Valve asset.
 
 Run from the repo root; writes konsole/*.colorscheme and konsole/*.profile.
 scripts/check-scheme-contrast.py independently re-verifies every emitted file.
@@ -80,9 +80,11 @@ SCHEMES = {
         black=(24, 24, 24), white=(255, 255, 255), opacity=0.92, blur=True,
         transform=lambda c: brighten(c, 0.18),
     ),
-    # VGUI2 Classic mood: dark olive canvas, muted grey-green body text.
-    "EmeraldVGUI2Classic": dict(
-        desc="Emerald VGUI2 Classic", bg=(20, 23, 17), fg=(178, 188, 168),
+    # Source-engine developer-console mood (an original palette evoking the
+    # Valve VGUI2 look -- dark olive canvas, muted grey-green body text -- with
+    # no Valve asset copied): named to reference the aesthetic, not the toolkit.
+    "EmeraldSourceConsole": dict(
+        desc="Emerald Source Console", bg=(20, 23, 17), fg=(178, 188, 168),
         black=(28, 31, 24), white=(210, 216, 196), opacity=1.0, blur=False,
     ),
 }
