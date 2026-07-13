@@ -37,6 +37,11 @@ for svg in "$work/svg"/*.svg; do
     rsvg-convert -w 256 -h 256 "$svg" -o "$work/bitmaps/$(basename "${svg%.svg}").png"
 done
 
+# ctgen writes cursor symlinks without clobbering; a stale theme dir from a
+# prior build (makepkg keeps srcdir across -f runs) collides, so start clean.
+rm -rf "$out_dir/Emerald"
+mkdir -p "$out_dir"
+
 ctgen "$bibata_src/configs/normal/x.build.toml" \
     -d "$work/bitmaps" \
     -o "$out_dir" \
