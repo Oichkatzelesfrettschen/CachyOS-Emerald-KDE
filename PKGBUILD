@@ -9,20 +9,29 @@ url="https://github.com/Oichkatzelesfrettschen/CachyOS-Emerald-KDE"
 license=('GPL-3.0-only')
 groups=('cachyos')
 depends=('cachyos-wallpapers' 'char-white' 'qt6-declarative')
-makedepends=('git' 'jq' 'kpackage' 'python' 'shellcheck')
+makedepends=('git' 'jq' 'kpackage' 'python' 'python-clickgen' 'librsvg' 'shellcheck')
 optdepends=('plasma-desktop: for the included Plasma global and desktop themes')
-source=("${pkgname}::git+${url}.git#branch=main")
-sha256sums=('SKIP')
+# The Emerald Xcursor theme is built from Bibata's GPL-3.0 SVG sources,
+# pinned to a commit for reproducibility.  See cursors/ATTRIBUTION.
+source=("${pkgname}::git+${url}.git#branch=main"
+        "bibata::git+https://github.com/ful1e5/Bibata_Cursor.git#commit=35ccfe209a808e40d6c2ca60a46cbe4faf68b690")
+sha256sums=('SKIP'
+            'SKIP')
 
 pkgver() {
     cd "${srcdir}/${pkgname}"
     printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+build() {
+    cd "${srcdir}/${pkgname}"
+    scripts/build-emerald-cursor.sh "${srcdir}/bibata" "${srcdir}/cursor-out"
+}
+
 check() {
     cd "${srcdir}/${pkgname}"
     scripts/validate-plasma6-theme.sh
-    shellcheck -S error scripts/validate-plasma6-theme.sh
+    shellcheck -S error scripts/validate-plasma6-theme.sh scripts/build-emerald-cursor.sh
 }
 
 package() {
@@ -49,4 +58,8 @@ package() {
 
     install -dm755 "${pkgdir}/usr/share/themes"
     cp -a gtk/. "${pkgdir}/usr/share/themes/"
+
+    install -dm755 "${pkgdir}/usr/share/icons"
+    cp -a "${srcdir}/cursor-out/Emerald" "${pkgdir}/usr/share/icons/Emerald"
+    install -m644 cursors/ATTRIBUTION "${pkgdir}/usr/share/icons/Emerald/ATTRIBUTION"
 }

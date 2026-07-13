@@ -213,8 +213,40 @@ def check_syntax_themes():
     return failures
 
 
+def check_cursor_palette():
+    """The Emerald Xcursor recolor map (cursors/emerald-palette.conf) is the
+    single source of truth shared with scripts/build-emerald-cursor.sh.  The
+    pointer body must sit in the emerald band, and the body must clear the
+    WCAG 1.4.11 non-text threshold against its own outline so the cursor
+    stays a legible shape rather than a flat emerald blob."""
+    failures = []
+    path = REPO_ROOT / "cursors" / "emerald-palette.conf"
+    if not path.is_file():
+        return [f"{path}: missing cursor palette manifest"]
+    values = {}
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        values[key.strip()] = value.strip()
+    body = parse_hex(values["BODY"])
+    edge = parse_hex(values["EDGE"])
+    hue = hue_degrees(body)
+    low, high = EMERALD_HUE_RANGE
+    if not low <= hue <= high:
+        failures.append(f"cursor body hue {hue:.0f} outside emerald band [{low:.0f}, {high:.0f}]")
+    ratio = contrast_ratio(body, edge)
+    if ratio < 3.0:
+        failures.append(f"cursor body/outline contrast {ratio:.2f} < 3.0")
+    return failures
+
+
 def main():
     all_ok = True
+    for failure in check_cursor_palette():
+        all_ok = False
+        print(failure, file=sys.stderr)
     for failure in check_syntax_themes():
         all_ok = False
         print(failure, file=sys.stderr)

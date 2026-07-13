@@ -1,0 +1,14 @@
+The Emerald Xcursor theme is a recolored derivative of Bibata Cursor.
+
+  Upstream: https://github.com/ful1e5/Bibata_Cursor
+  Author:   Abdulkaiz Khatri (ful1e5)
+  License:  GNU General Public License v3.0
+
+The build fetches Bibata's GPL-3.0 SVG sources, substitutes its color
+sentinels for the CachyOS Emerald palette (cursors/emerald-palette.conf),
+rasterizes with librsvg, and packages the Xcursor set with clickgen's
+ctgen using Bibata's own X11 build manifest.  Only the color mapping and
+theme metadata are changed; the cursor geometry and hotspots are Bibata's.
+
+This derivative is distributed under GPL-3.0, matching both Bibata and
+this repository's license.
